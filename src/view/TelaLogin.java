@@ -4,6 +4,10 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -46,6 +50,20 @@ public class TelaLogin extends JPanel {
 
         tfCpf = new JTextField();
         tfCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        
+        AbstractDocument doc = (AbstractDocument) tfCpf.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String stringAtual = fb.getDocument().getText(0, fb.getDocument().getLength());
+                String proximaString = stringAtual.substring(0, offset) + text + stringAtual.substring(offset + length);
+
+                if (text.matches("\\d*") && proximaString.length() <= 11) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+
         add(tfCpf, "cell 2 3, growx, height 28!");
 
         btEntrar = new JButton("Entrar");

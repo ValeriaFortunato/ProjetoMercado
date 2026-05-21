@@ -4,9 +4,12 @@ import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaCadastroUsuario extends JPanel {
 
+    private static final long serialVersionUID = 1L;
     private JTextField tfNome;
     private JTextField tfCpf;
     private JButton btnCadastrar;
@@ -79,7 +82,17 @@ public class TelaCadastroUsuario extends JPanel {
         btnCadastrar.setFocusPainted(false);
         btnCadastrar.setBorder(new EmptyBorder(5, 15, 5, 15));
         btnCadastrar.setFont(new Font("Tahoma", Font.BOLD, 14));
+        
         add(btnCadastrar, "growx, height 35!, gaptop 15, gapleft 10");
+    }
+
+    public boolean isCpfValido() {
+        String cpf = tfCpf.getText().trim();
+        if (!cpf.matches("\\d{11}")) {
+            JOptionPane.showMessageDialog(this, "O CPF deve conter exatamente 11 números e nenhuma letra!", "Falha no Cadastro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     public JTextField getTfNome() { return tfNome; }

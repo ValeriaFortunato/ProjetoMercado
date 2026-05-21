@@ -1,7 +1,6 @@
 package controller;
 
 import javax.swing.JOptionPane;
-
 import model.Usuario;
 import model.UsuarioDAO;
 import view.*;
@@ -21,11 +20,16 @@ public class CadastroUsuarioController {
 
         view.getbtnCadastrar().addActionListener(e -> {
 
-            String nome = view.getTfNome().getText();
-            String cpf = view.getTfCpf().getText();
+            String nome = view.getTfNome().getText().trim();
+            String cpf = view.getTfCpf().getText().trim();
 
             if (nome.isEmpty() || cpf.isEmpty()) {
                 JOptionPane.showMessageDialog(view, "Preencha todos os campos!");
+                return;
+            }
+
+            if (!cpf.matches("\\d{11}")) {
+                JOptionPane.showMessageDialog(view, "O CPF deve conter exatamente 11 números e nenhuma letra!");
                 return;
             }
 
@@ -51,6 +55,7 @@ public class CadastroUsuarioController {
                 ex.printStackTrace();
             }
         });
+
         view.getbtnVoltar().addActionListener(e -> {
             TelaLogin tela = new TelaLogin();
             new LoginController(tela, frame);
