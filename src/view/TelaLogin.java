@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class TelaLogin extends JPanel {
 
@@ -23,33 +24,49 @@ public class TelaLogin extends JPanel {
     private JLabel lblNewLabel;
 
     public TelaLogin() {
-        Color corFundo = new Color(255, 106, 106);
+        Color corFundo = new Color(30, 41, 59);       
+        Color corInputBg = new Color(255, 255, 255);
+        Color corBotaoPrincipal = new Color(37, 99, 235); 
+        Color corBotaoSecundario = new Color(71, 85, 105); 
+        Color corTextoMuted = new Color(148, 163, 184);   
+        
         setBackground(corFundo);
         setToolTipText("Tela Login");
 
-        setLayout(new MigLayout("fill, insets 40", "[grow][right][250px:250px, grow][grow]", "[grow][][][][][][grow]"));
+        setLayout(new MigLayout("fill, insets 50 40 50 40", "[grow][right][280px:280px, grow][grow]", "[grow][][][][][][grow]"));
         
-        lblNewLabel = new JLabel("Bem-vindo! Acesse sua conta");
+        lblNewLabel = new JLabel("Bem-vindo de volta");
         lblNewLabel.setForeground(Color.WHITE);
-        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 22));
-        add(lblNewLabel, "cell 1 1 2 1, alignx center, gapbottom 20");
+        lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 26)); 
+        add(lblNewLabel, "cell 1 1 2 1, alignx center, gapbottom 8");
 
-        JLabel lblNome = new JLabel("Nome:");
+        JLabel lblSub = new JLabel("");
+        lblSub.setForeground(corTextoMuted);
+        lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        add(lblSub, "cell 1 1 2 1, alignx center, gapbottom 30"); 
+
+        JLabel lblNome = new JLabel("Nome");
         lblNome.setForeground(Color.WHITE);
-        lblNome.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-        add(lblNome, "cell 1 2");
+        lblNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        add(lblNome, "cell 1 2, gapright 10");
 
         tfNome = new JTextField();
-        tfNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        add(tfNome, "cell 2 2, growx, height 28!");
+        tfNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        tfNome.setBackground(corInputBg);
+        tfNome.setBorder(new LineBorder(new Color(203, 213, 225), 1)); 
+        tfNome.setBorder(javax.swing.BorderFactory.createCompoundBorder(tfNome.getBorder(), new EmptyBorder(0, 8, 0, 8)));
+        add(tfNome, "cell 2 2, growx, height 36!, gapbottom 12");
 
-        JLabel lblCpf = new JLabel("CPF:");
+        JLabel lblCpf = new JLabel("CPF");
         lblCpf.setForeground(Color.WHITE);
-        lblCpf.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-        add(lblCpf, "cell 1 3");
+        lblCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        add(lblCpf, "cell 1 3, gapright 10");
 
         tfCpf = new JTextField();
-        tfCpf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tfCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        tfCpf.setBackground(corInputBg);
+        tfCpf.setBorder(new LineBorder(new Color(203, 213, 225), 1));
+        tfCpf.setBorder(javax.swing.BorderFactory.createCompoundBorder(tfCpf.getBorder(), new EmptyBorder(0, 8, 0, 8)));
         
         AbstractDocument doc = (AbstractDocument) tfCpf.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -64,28 +81,23 @@ public class TelaLogin extends JPanel {
             }
         });
 
-        add(tfCpf, "cell 2 3, growx, height 28!");
+        add(tfCpf, "cell 2 3, growx, height 36!, gapbottom 20");
 
         btEntrar = new JButton("Entrar");
-        btEntrar.setBackground(Color.WHITE);
-        btEntrar.setForeground(corFundo);
+        btEntrar.setBackground(corBotaoPrincipal);
+        btEntrar.setForeground(Color.WHITE);
         btEntrar.setFocusPainted(false); 
         btEntrar.setBorder(new EmptyBorder(5, 15, 5, 15));
-        btEntrar.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        add(btEntrar, "cell 2 4, split 2, growx, height 35!, gaptop 10");
+        btEntrar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        add(btEntrar, "cell 2 4, split 2, growx, height 38!, gapright 8");
 
-        btCadastrar = new JButton("Cadastrar");
-        btCadastrar.setBackground(Color.WHITE);
-        btCadastrar.setForeground(corFundo);
+        btCadastrar = new JButton("Criar Conta");
+        btCadastrar.setBackground(corBotaoSecundario);
+        btCadastrar.setForeground(Color.WHITE);
         btCadastrar.setFocusPainted(false);
         btCadastrar.setBorder(new EmptyBorder(5, 15, 5, 15));
-        btCadastrar.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        add(btCadastrar, "cell 2 4, growx, height 35!, gaptop 10");
-        
-        JLabel lblSub = new JLabel("Por favor, acesse sua conta ou crie uma nova.");
-        lblSub.setForeground(new Color(245, 245, 245));
-        lblSub.setFont(new Font("Times New Roman", Font.ITALIC, 12));
-        add(lblSub, "cell 1 5 2 1, alignx center, gaptop 20");
+        btCadastrar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        add(btCadastrar, "cell 2 4, growx, height 38!");
     }
 
     public JTextField getTfNome() { return tfNome; }

@@ -8,7 +8,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JTextField;
+import javax.swing.table.JTableHeader;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 public class TelaCarrinhoCompra extends JPanel {
@@ -23,17 +25,30 @@ public class TelaCarrinhoCompra extends JPanel {
 	private JLabel total;
 
 	public TelaCarrinhoCompra() {
-		Color corFundo = new Color(255, 106, 106);
-		setBackground(corFundo);
-		setLayout(new MigLayout("", "[grow][grow][grow][grow][grow]", "[grow][grow][grow][grow 20][::20px,grow 20][::20px,grow 20][::20px,grow 20][::20px,grow 20][][grow][grow]"));
+		Color corFundo = new Color(30, 41, 59);       
+		Color corPrincipal = new Color(37, 99, 235);  
+		Color corSecundaria = new Color(71, 85, 105); 
+		Color corPerigo = new Color(239, 68, 68);     
+		Color corTextoMuted = new Color(148, 163, 184);
 		
-		JLabel lblNewLabel = new JLabel("Carrinho de compras");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
-		add(lblNewLabel, "cell 1 1");
+		setBackground(corFundo);
+		
+		setLayout(new MigLayout("fill, insets 12 20 12 20", "[grow][300px:550px,grow][15px:25px][220px:320px,grow][grow]", "[grow][][][80px:220px,grow][][][][][][][grow]"));
+		
+		JLabel lblNewLabel = new JLabel("Seu Carrinho");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 28)); 
+		add(lblNewLabel, "cell 1 1 3 1, alignx center, gapbottom 10");
 		
 		table = new JTable();
-		table.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		table.setRowHeight(32);
+		table.setBackground(Color.WHITE);
+		table.setGridColor(new Color(226, 232, 240));
+		table.setSelectionBackground(new Color(37, 99, 235));
+		table.setSelectionForeground(Color.WHITE);
+		table.setShowVerticalLines(false);
+		
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
@@ -42,44 +57,58 @@ public class TelaCarrinhoCompra extends JPanel {
 				"Produto", "Preço", "Quantidade"
 			}
 		));
+		
+		JTableHeader header = table.getTableHeader();
+		header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		header.setBackground(new Color(241, 245, 249));
+		header.setForeground(new Color(15, 23, 42));
+		header.setBorder(new LineBorder(new Color(226, 232, 240), 1));
+		
 		scrollPane = new JScrollPane(table);
-		add(scrollPane, "cell 1 3 1 7,grow");
+		scrollPane.setBorder(new LineBorder(new Color(71, 85, 105), 1));
+		add(scrollPane, "cell 1 3 1 7, grow");
 		
-		JLabel lblNewLabel_1 = new JLabel("Total a pagar:");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-		add(lblNewLabel_1, "cell 2 4,alignx trailing");
+		JLabel lblNewLabel_1 = new JLabel("Total do pedido:");
+		lblNewLabel_1.setForeground(corTextoMuted);
+		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		add(lblNewLabel_1, "cell 3 3, alignx left, gapbottom 3");
 		
-		total = new JLabel("");
+		total = new JLabel("R$ 0,00");
 		total.setForeground(Color.WHITE);
-		add(total, "cell 3 4");
+		total.setFont(new Font("Segoe UI", Font.BOLD, 26));
+		add(total, "cell 3 4, alignx left, gapbottom 10");
 		
-		btRemover = new JButton("Remover do carrinho");
-		btRemover.setBackground(Color.WHITE);
-		btRemover.setForeground(corFundo);
-		btRemover.setFocusPainted(false);
-		btRemover.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-		add(btRemover, "cell 3 5,growx");
-		
-		btNota = new JButton("Emitir nota fiscal e pagar");
-		btNota.setBackground(Color.WHITE);
-		btNota.setForeground(corFundo);
-		btNota.setFocusPainted(false);
-		btNota.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-		add(btNota, "cell 3 6,growx");
-		
-		btPagar = new JButton("Pagar");
-		btPagar.setBackground(Color.WHITE);
-		btPagar.setForeground(corFundo);
+		btPagar = new JButton("Finalizar Pagamento");
+		btPagar.setBackground(corPrincipal);
+		btPagar.setForeground(Color.WHITE);
 		btPagar.setFocusPainted(false);
-		btPagar.setFont(new Font("Times New Roman", Font.PLAIN, 11));
-		add(btPagar, "cell 3 7,growx");
+		btPagar.setBorder(new EmptyBorder(5, 15, 5, 15));
+		btPagar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		add(btPagar, "cell 3 5, growx, height 36!, gapbottom 6"); 
 		
-		btVoltar = new JButton("Voltar");
-		btVoltar.setBackground(Color.WHITE);
-		btVoltar.setForeground(corFundo);
+		btNota = new JButton("Emitir Nota Fiscal e Pagar");
+		btNota.setBackground(corSecundaria);
+		btNota.setForeground(Color.WHITE);
+		btNota.setFocusPainted(false);
+		btNota.setBorder(new EmptyBorder(5, 15, 5, 15));
+		btNota.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		add(btNota, "cell 3 6, growx, height 36!, gapbottom 6"); 
+		
+		btRemover = new JButton("Remover do Carrinho");
+		btRemover.setBackground(corFundo);
+		btRemover.setForeground(corPerigo);
+		btRemover.setFocusPainted(false);
+		btRemover.setBorder(new LineBorder(corPerigo, 1));
+		btRemover.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		add(btRemover, "cell 3 7, growx, height 36!, gapbottom 12"); 
+		
+		btVoltar = new JButton("Voltar ao Catálogo");
+		btVoltar.setBackground(corSecundaria);
+		btVoltar.setForeground(new Color(203, 213, 225));
 		btVoltar.setFocusPainted(false);
-		add(btVoltar, "cell 3 8,growx");
+		btVoltar.setBorder(new EmptyBorder(5, 15, 5, 15));
+		btVoltar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		add(btVoltar, "cell 3 8, growx, height 36!"); 
 	}
 	
 	public JScrollPane getscrollPane() {return scrollPane; }
